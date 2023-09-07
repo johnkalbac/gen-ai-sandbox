@@ -1,0 +1,42 @@
+package com.reference.genai.sandbox.controller;
+
+import com.reference.genai.sandbox.model.Widget;
+import com.reference.genai.sandbox.service.WidgetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(ApiConstants.API_WIDGETS_ROOT_CONTEXT)
+public class WidgetController {
+
+    @Autowired
+    private WidgetService widgetService;
+
+    @PostMapping
+    public Widget createWidget(@RequestBody Widget widget) {
+        return widgetService.createWidget(widget);
+    }
+
+    @GetMapping
+    public List<Widget> readWidgets() {
+        return widgetService.readWidgets();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Widget> readWidget(@PathVariable("id") Long id) {
+        return widgetService.readWidget(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Widget> updateWidget(@PathVariable("id") Long id, @RequestBody Widget widget) {
+        return widgetService.updateWidget(id, widget);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWidget(@PathVariable("id") Long id) {
+        return widgetService.deleteWidget(id);
+    }
+}
